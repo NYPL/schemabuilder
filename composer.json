@@ -1,0 +1,24 @@
+{
+  "name": "nypl/schema_org_generator",
+  "description": "Schema.org Generator",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Kevin Friedman",
+      "email": "kevinfriedman@nypl.org"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "4.8.9"
+  },
+  "require": {
+    "danielstjules/stringy": "2.3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "NYPL\\Schema\\": [ "src/" ],
+      "NYPL\\Schema\\Tests\\": [ "tests/" ]
+    }
+  }
+}

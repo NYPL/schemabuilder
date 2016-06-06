@@ -1,0 +1,58 @@
+#!/usr/bin/env php
+<?php
+require '../vendor/autoload.php';
+
+use NYPL\Schema\Model\Schema;
+
+$book = new Schema('Book');
+$book->addProperty('additionalType', 'http://schema.org/Product');
+$book->addProperty('name', 'Le concerto');
+$book->addProperty('author', 'Ferchault, Guy');
+
+$offer = new Schema('Offer');
+$offer->addProperty('availability', 'http://schema.org/InStock');
+$offer->addProperty('serialNumber', 'CONC91000937');
+$offer->addProperty('sku', '780 R2');
+
+$library = new Schema('Library');
+$offer->addProperty('offeredBy', $library);
+
+$offer->addProperty('businessFunction', 'http://purl.org/goodrelations/v1#LeaseOut');
+$offer->addProperty('itemOffered', '#record');
+
+$book->addProperty('offers', $offer);
+?>
+<html>
+<head></head>
+<body>
+    <div <?php $book->outputMicrodata(); ?> itemid="#record">
+        <?php $book->outputMicrodata('additionalType', 'link'); ?>
+        <?php $book->outputMicrodata('name', 'h3'); ?>
+        <table summary="Bibliographic Details">
+            <tr>
+                <th>Main Author: </th>
+                <?php $book->outputMicrodata('author', 'td'); ?>
+            </tr>
+        </table>
+
+        <table summary="Holdings details from Anytown City Library">
+            <!-- Example of a copy available for loan -->
+            <tr <?php $book->getProperty('offers')->outputMicrodata(); ?>>
+                <th>Copy </th>
+                <td>Available
+                    <?php $book->getProperty('offers')->outputMicrodata('availability', 'link'); ?>
+                    <div>Barcode: <?php $book->getProperty('offers')->outputMicrodata('serialNumber', 'span'); ?></div>
+                    <div>Call number: <?php $book->getProperty('offers')->outputMicrodata('sku', 'span'); ?></div>
+                    <div>
+                        Library:
+                        <?php $book->getProperty('offers')->getProperty('offeredBy')->outputMicrodata('', 'span'); ?>
+                    </div>
+                    <?php $book->getProperty('offers')->outputMicrodata('businessFunction', 'link'); ?>
+                    <?php $book->getProperty('offers')->outputMicrodata('itemOffered', 'link'); ?>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+
