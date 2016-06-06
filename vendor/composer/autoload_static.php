@@ -20,8 +20,8 @@ class ComposerStaticInit2dc11f373b1adcafb314671e7d52ce37
         ),
         'N' => 
         array (
-            'NYPL\\Schema\\Tests\\' => 18,
-            'NYPL\\Schema\\' => 12,
+            'NYPL\\SchemaBuilder\\Tests\\' => 25,
+            'NYPL\\SchemaBuilder\\' => 19,
         ),
         'D' => 
         array (
@@ -42,11 +42,11 @@ class ComposerStaticInit2dc11f373b1adcafb314671e7d52ce37
         array (
             0 => __DIR__ . '/..' . '/danielstjules/stringy/src',
         ),
-        'NYPL\\Schema\\Tests\\' => 
+        'NYPL\\SchemaBuilder\\Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
-        'NYPL\\Schema\\' => 
+        'NYPL\\SchemaBuilder\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

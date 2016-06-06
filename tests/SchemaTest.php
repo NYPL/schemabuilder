@@ -1,13 +1,13 @@
 <?php
-namespace NYPL\Schema\Tests;
+namespace NYPL\SchemaBuilder\Tests;
 
-use NYPL\Schema\Model\Schema;
+use NYPL\SchemaBuilder\Schema;
 
 class SchemaTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage \NYPL\Schema\Model\Schema::EXCEPTION_SCHEMA_TYPE_REQUIRED
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Schema::EXCEPTION_SCHEMA_TYPE_REQUIRED
      */
     public function testConstructorWithoutTypeThrowsException()
     {
@@ -25,7 +25,7 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage \NYPL\Schema\Model\Schema::EXCEPTION_SCHEMA_TYPE_INVALID
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Schema::EXCEPTION_SCHEMA_TYPE_INVALID
      */
     public function testTypeInLowercaseThrowsException()
     {
@@ -34,7 +34,7 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage \NYPL\Schema\Model\Schema::EXCEPTION_PROPERTY_NAME_REQUIRED
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Schema::EXCEPTION_PROPERTY_NAME_REQUIRED
      */
     public function testSetPropertyWithoutNameThrowsException()
     {
@@ -45,7 +45,7 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage \NYPL\Schema\Model\Schema::EXCEPTION_PROPERTY_VALUE_INVALID
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Schema::EXCEPTION_PROPERTY_VALUE_INVALID
      */
     public function testSetPropertyWithNullValueThrowsException()
     {
@@ -67,7 +67,7 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \OutOfBoundsException
-     * @expectedExceptionMessage \NYPL\Schema\Model\Schema::EXCEPTION_PROPERTY_DOES_NOT_EXIST
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Schema::EXCEPTION_PROPERTY_DOES_NOT_EXIST
      */
     public function testGetPropertyWithoutExistingThrowsException()
     {
@@ -78,7 +78,7 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage \NYPL\Schema\Model\Schema::EXCEPTION_PROPERTY_ALREADY_EXISTS
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Schema::EXCEPTION_PROPERTY_ALREADY_EXISTS
      */
     public function testAddingExistingPropertyThrowsException()
     {
@@ -99,5 +99,19 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
         $schema->addProperty($propertyName, $offer);
 
         $this->assertSame($propertyName, $offer->getParentPropertyName());
+    }
+
+    public function testGetSchemaValue()
+    {
+        $propertyName = 'name';
+        $name = 'Author';
+
+        $schema = new Schema('Book');
+
+        $schema->addProperty($propertyName, $name);
+
+        $this->expectOutputString($name);
+
+        $schema->outputProperty($propertyName);
     }
 }

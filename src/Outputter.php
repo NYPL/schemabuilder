@@ -1,7 +1,7 @@
 <?php
-namespace NYPL\Schema;
+namespace NYPL\SchemaBuilder;
 
-use NYPL\Schema\Model\Schema;
+use NYPL\SchemaBuilder\Schema;
 
 abstract class Outputter
 {

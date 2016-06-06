@@ -1,9 +1,9 @@
 <?php
-namespace NYPL\Schema\Tests;
+namespace NYPL\SchemaBuilder\Tests;
 
-use NYPL\Schema\Model\Schema;
-use NYPL\Schema\Outputter;
-use NYPL\Schema\WrapperAttribute;
+use NYPL\SchemaBuilder\Schema;
+use NYPL\SchemaBuilder\Outputter;
+use NYPL\SchemaBuilder\WrapperAttribute;
 
 class MicrodataOutputterTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class MicrodataOutputterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage \NYPL\Schema\Outputter\MicrodataOutputter::EXCEPTION_PROPERTY_OUTPUTTED_BEFORE_OBJECT
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Outputter\MicrodataOutputter::EXCEPTION_PROPERTY_OUTPUTTED_BEFORE_OBJECT
      */
     public function testOutputPropertyValueObjectThrowsException()
     {
@@ -64,7 +64,7 @@ class MicrodataOutputterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage \NYPL\Schema\Outputter\MicrodataOutputter::EXCEPTION_WRAPPER_INVALID
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Outputter\MicrodataOutputter::EXCEPTION_WRAPPER_INVALID
      */
     public function testOutputWithInvalidWrapperThrowsException()
     {
@@ -178,7 +178,7 @@ class MicrodataOutputterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage \NYPL\Schema\Outputter\MicrodataOutputter::EXCEPTION_SUB_PROPERTY_OUTPUTTED_BEFORE_OBJECT
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Outputter\MicrodataOutputter::EXCEPTION_SUB_PROPERTY_OUTPUTTED_BEFORE_OBJECT
      */
     public function testParentPropertyThrowsExceptionIfNotOutputter()
     {

@@ -1,10 +1,10 @@
 <?php
-namespace NYPL\Schema\Outputter;
+namespace NYPL\SchemaBuilder\Outputter;
 
-use NYPL\Schema\Model\Schema;
-use NYPL\Schema\Outputter;
-use NYPL\Schema\Wrapper;
-use NYPL\Schema\WrapperAttribute;
+use NYPL\SchemaBuilder\Schema;
+use NYPL\SchemaBuilder\Outputter;
+use NYPL\SchemaBuilder\Wrapper;
+use NYPL\SchemaBuilder\WrapperAttribute;
 use Stringy\Stringy;
 
 class MicrodataOutputter extends Outputter

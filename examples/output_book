@@ -2,7 +2,7 @@
 <?php
 require '../vendor/autoload.php';
 
-use NYPL\Schema\Model\Schema;
+use NYPL\SchemaBuilder\Schema;
 
 $book = new Schema('Book');
 $book->addProperty('additionalType', 'http://schema.org/Product');
@@ -26,6 +26,9 @@ $book->addProperty('offers', $offer);
 <head></head>
 <body>
     <div <?php $book->outputMicrodata(); ?> itemid="#record">
+        <h1 <?php $book->outputMicrodata('name'); ?>><?php $book->outputProperty('name'); ?></h1>
+
+
         <?php $book->outputMicrodata('additionalType', 'link'); ?>
         <?php $book->outputMicrodata('name', 'h3'); ?>
         <table summary="Bibliographic Details">

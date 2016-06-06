@@ -1,6 +1,6 @@
 {
-  "name": "nypl/schema_org_generator",
-  "description": "Schema.org Generator",
+  "name": "nypl/schemabuilder",
+  "description": "SchemaBuilder",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
@@ -17,8 +17,8 @@
   },
   "autoload": {
     "psr-4": {
-      "NYPL\\Schema\\": [ "src/" ],
-      "NYPL\\Schema\\Tests\\": [ "tests/" ]
+      "NYPL\\SchemaBuilder\\": [ "src/" ],
+      "NYPL\\SchemaBuilder\\Tests\\": [ "tests/" ]
     }
   }
 }

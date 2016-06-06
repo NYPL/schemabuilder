@@ -9,7 +9,7 @@ return array(
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Stringy\\' => array($vendorDir . '/danielstjules/stringy/src'),
-    'NYPL\\Schema\\Tests\\' => array($baseDir . '/tests'),
-    'NYPL\\Schema\\' => array($baseDir . '/src'),
+    'NYPL\\SchemaBuilder\\Tests\\' => array($baseDir . '/tests'),
+    'NYPL\\SchemaBuilder\\' => array($baseDir . '/src'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
 );

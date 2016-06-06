@@ -1,5 +1,5 @@
 <?php
-namespace NYPL\Schema;
+namespace NYPL\SchemaBuilder;
 
 class WrapperAttribute
 {

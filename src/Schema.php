@@ -1,9 +1,7 @@
 <?php
-namespace NYPL\Schema\Model;
+namespace NYPL\SchemaBuilder;
 
-use NYPL\Schema\Model;
-use NYPL\Schema\Outputter\MicrodataOutputter;
-use NYPL\Schema\WrapperAttribute;
+use NYPL\SchemaBuilder\Outputter\MicrodataOutputter;
 use Stringy\Stringy;
 
 class Schema extends Model
@@ -178,6 +176,16 @@ class Schema extends Model
     public function outputMicrodata($propertyName = '', $wrapper = '', array $wrapperAttributes = array())
     {
         $this->getMicrodataOutputter()->output($propertyName, $wrapper, $wrapperAttributes);
+    }
+
+    /**
+     * @param string $propertyName
+     *
+     * @return string
+     */
+    public function outputProperty($propertyName = '')
+    {
+        echo $this->getProperty($propertyName);
     }
 
     /**
