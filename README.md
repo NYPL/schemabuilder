@@ -57,10 +57,10 @@ When you have finished building your Schema.org object, you can output it two wa
 
 To output without a HTML wrapper:
 
-```php
-// Output an Object
+```html
+<!--Output an Object-->
 <div <?php $book->outputMicrodata(); ?> itemid="#record">
-// Output an Object's property
+<!--Output an Object's property-->
 <h1 <?php $book->outputMicrodata('name'); ?>><?php $book->outputProperty('name'); ?></h1>
 ```
 
@@ -75,7 +75,7 @@ Will output:
 
 To output with a property with a HTML wrapper:
 
-```php
+```html
 <?php $book->outputMicrodata('additionalType', 'link'); ?>
 <?php $book->outputMicrodata('name', 'h3'); ?>
 ```
