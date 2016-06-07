@@ -55,14 +55,14 @@ When you have finished building your Schema.org object, output it in two ways:
 
 To output without a HTML wrapper use the `outputMicrodata` method with or without a property name.
 
-If you do **not** specify a property name, microdata to describe the primary object will be generated.
-
 ```
 // Output an Object
 <div <?php $book->outputMicrodata(); ?> itemid="#record">
 // Output an Object's property
 <h1 <?php $book->outputMicrodata('name'); ?>><?php $book->outputProperty('name'); ?></h1>
 ```
+
+If you do **not** specify a property name, microdata to describe the primary object will be generated.
 
 Outputs:
 
