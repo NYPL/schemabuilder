@@ -24,7 +24,6 @@ For example, to create a [Book](http://schema.org/Book):
 
 ```php
 <?php
-
 $book = new NYPL\SchemaBuilder\Schema('Book');
 ```
 
@@ -32,7 +31,6 @@ Then, set the properties of the object wih the property **name** and **value**:
 
 ```php
 <?php
-
 $book->addProperty('name', 'Le concerto');
 $book->addProperty('author', 'Ferchault, Guy');
 ```
@@ -51,20 +49,20 @@ $book->addProperty('offers', $offer);
 
 ### Output Schema.org as Microdata
 
-When you have finished building your Schema.org object, you can output it two ways:
+When you have finished building your Schema.org object, output it in two ways:
 
 #### 1. Properties Only
 
 To output without a HTML wrapper:
 
-```php
+```
 // Output an Object
 <div <?php $book->outputMicrodata(); ?> itemid="#record">
 // Output an Object's property
 <h1 <?php $book->outputMicrodata('name'); ?>><?php $book->outputProperty('name'); ?></h1>
 ```
 
-Will output:
+Outputs:
 
 ```html
 <div itemscope itemtype="http://schema.org/Book" itemid="#record">
@@ -75,12 +73,12 @@ Will output:
 
 To output with a property with a HTML wrapper:
 
-```php
+```
 <?php $book->outputMicrodata('additionalType', 'link'); ?>
 <?php $book->outputMicrodata('name', 'h3'); ?>
 ```
 
-Will output:
+Outputs:
 
 ```html
 <link itemprop="additionalType" href="http://schema.org/Product">
