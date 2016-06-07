@@ -1,6 +1,6 @@
 # SchemaBuilder
 
-A simple library to generate [Schema.org](http://schema.org)
+A simple library to generate [Schema.org](http://schema.org).
 
 ## Installation
 
@@ -53,7 +53,9 @@ When you have finished building your Schema.org object, output it in two ways:
 
 #### 1. Properties Only
 
-To output without a HTML wrapper:
+To output without a HTML wrapper use the `outputMicrodata` method with or without a property name.
+
+If you do **not** specify a property name, microdata to describe the primary object will be generated.
 
 ```
 // Output an Object
@@ -71,7 +73,7 @@ Outputs:
 
 #### 2. Wrapped Properties
 
-To output with a property with a HTML wrapper:
+To output with a property with a HTML wrapper specify the name of the property and the wrapper that you want to use:
 
 ```
 <?php $book->outputMicrodata('additionalType', 'link'); ?>
