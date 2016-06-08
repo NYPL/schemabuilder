@@ -1,9 +1,6 @@
 language: php
 php:
   - 5.5
-matrix:
-  allow_failures:
-    - nightly
 script:
   - composer install
   - phpunit --coverage-clover build/logs/clover.xml
