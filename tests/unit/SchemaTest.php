@@ -1,5 +1,5 @@
 <?php
-namespace NYPL\SchemaBuilder\Tests\Unit;
+namespace NYPL\SchemaBuilder\Tests;
 
 use NYPL\SchemaBuilder\Schema;
 

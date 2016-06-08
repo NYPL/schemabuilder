@@ -18,7 +18,7 @@
   "autoload": {
     "psr-4": {
       "NYPL\\SchemaBuilder\\": [ "src/" ],
-      "NYPL\\SchemaBuilder\\Tests\\": [ "tests/" ]
+      "NYPL\\SchemaBuilder\\Tests\\": [ "tests/unit/" ]
     }
   }
 }
