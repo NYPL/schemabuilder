@@ -48,8 +48,8 @@ class JsonLdOutputter extends Outputter
             $this->append('"@context": "' . self::SCHEMA_BASE_URL . '"', 2);
             $this->append('"@type": "' . $this->getSchema()->getType() . '"', 2);
 
-            if ($this->getSchema()->getId()) {
-                $this->append('"@id": "' . $this->getSchema()->getId() . '"', 2);
+            if ($this->getSchema()->getSchemaId()) {
+                $this->append('"@id": "' . $this->getSchema()->getSchemaId() . '"', 2);
             }
 
             $this->generatePropertiesJsonLd($this->getSchema(), 2);
