@@ -22,7 +22,7 @@ class Schema extends Model
     /**
      * @var string
      */
-    protected $id = '';
+    protected $schemaId = '';
 
     /**
      * @var array
@@ -276,16 +276,16 @@ class Schema extends Model
     /**
      * @return string
      */
-    public function getId()
+    public function getSchemaId()
     {
-        return $this->id;
+        return $this->schemaId;
     }
 
     /**
-     * @param string $id
+     * @param string $schemaId
      */
-    public function setId($id)
+    public function setSchemaId($schemaId)
     {
-        $this->id = $id;
+        $this->schemaId = $schemaId;
     }
 }

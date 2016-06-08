@@ -2,6 +2,10 @@
 
 A simple library to generate [Schema.org](http://schema.org).
 
+## Quality
+
+[![Build Status](https://travis-ci.org/NYPL/schemabuilder.svg?branch=master)](https://travis-ci.org/NYPL/schemabuilder.svg)
+
 ## Installation
 
 This library requires PHP 5.4 or later.

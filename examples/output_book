@@ -5,7 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use NYPL\SchemaBuilder\Schema;
 
 $book = new Schema('Book');
-$book->setId('#record');
+$book->setSchemaId('#record');
 $book->addProperty('additionalType', 'http://schema.org/Product');
 $book->addProperty('name', 'Le concerto');
 $book->addProperty('author', 'Ferchault, Guy');

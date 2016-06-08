@@ -39,7 +39,7 @@ class JsonLdOutputterTest extends \PHPUnit_Framework_TestCase
     {
         $id = '#test';
 
-        $this->schema->setId($id);
+        $this->schema->setSchemaId($id);
 
         $this->assertContains('"@id": "' . $id . '"', $this->schema->getJsonLd());
     }
