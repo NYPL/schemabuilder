@@ -1,10 +1,10 @@
 <?php
 namespace NYPL\SchemaBuilder;
 
-use NYPL\SchemaBuilder\Schema;
-
 abstract class Outputter
 {
+    abstract public function get();
+
     const SCHEMA_BASE_URL = 'http://schema.org';
 
     /**

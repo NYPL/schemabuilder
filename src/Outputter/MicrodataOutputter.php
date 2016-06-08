@@ -9,15 +9,15 @@ use Stringy\Stringy;
 
 class MicrodataOutputter extends Outputter
 {
-    /**
-     * @var bool
-     */
-    protected $objectOutputted = false;
-
     const EXCEPTION_PROPERTY_OUTPUTTED_BEFORE_OBJECT = 'Object must be outputted before any property is outputted';
     const EXCEPTION_SUB_PROPERTY_OUTPUTTED_BEFORE_OBJECT =
         'Child objects must be outputted before any property is outputted';
     const EXCEPTION_WRAPPER_INVALID = 'Wrapper specified is invalid';
+
+    /**
+     * @var bool
+     */
+    protected $objectOutputted = false;
 
     /**
      * @param string $wrapperName
@@ -99,7 +99,7 @@ class MicrodataOutputter extends Outputter
 
         if ($this->getSchema()->getProperty($propertyName) instanceof Schema) {
             $wrapper->addAttribute('itemscope');
-            
+
             $wrapper->addAttribute(
                 'itemtype',
                 $this->getTypeUrl($this->getSchema()->getProperty($propertyName)->getType())
@@ -163,18 +163,6 @@ class MicrodataOutputter extends Outputter
         } else {
             return $this->getProperty($propertyName, $wrapperName, $wrapperAttributes);
         }
-    }
-
-    /**
-     * @param string $propertyName
-     * @param string $wrapperName
-     * @param WrapperAttribute[] $wrapperAttributes
-     *
-     * @return string
-     */
-    public function output($propertyName = '', $wrapperName = '', array $wrapperAttributes = array())
-    {
-        echo $this->get($propertyName, $wrapperName, $wrapperAttributes);
     }
 
     /**

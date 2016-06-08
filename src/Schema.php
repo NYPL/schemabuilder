@@ -1,6 +1,7 @@
 <?php
 namespace NYPL\SchemaBuilder;
 
+use NYPL\SchemaBuilder\Outputter\JsonLdOutputter;
 use NYPL\SchemaBuilder\Outputter\MicrodataOutputter;
 use Stringy\Stringy;
 
@@ -19,6 +20,11 @@ class Schema extends Model
     protected $type = '';
 
     /**
+     * @var string
+     */
+    protected $id = '';
+
+    /**
      * @var array
      */
     protected $properties = [];
@@ -27,6 +33,11 @@ class Schema extends Model
      * @var MicrodataOutputter
      */
     protected $microdataOutputter;
+
+    /**
+     * @var JsonLdOutputter
+     */
+    protected $jsonLdOutputter;
 
     /**
      * @var string
@@ -175,7 +186,17 @@ class Schema extends Model
      */
     public function outputMicrodata($propertyName = '', $wrapper = '', array $wrapperAttributes = array())
     {
-        $this->getMicrodataOutputter()->output($propertyName, $wrapper, $wrapperAttributes);
+        echo $this->getMicrodata($propertyName, $wrapper, $wrapperAttributes);
+    }
+
+    public function getJsonLd()
+    {
+        return $this->getJsonLdOutputter()->get();
+    }
+
+    public function outputJsonLd()
+    {
+        echo $this->getJsonLd();
     }
 
     /**
@@ -222,5 +243,49 @@ class Schema extends Model
     protected function setParentPropertyName($parentPropertyName)
     {
         $this->parentPropertyName = $parentPropertyName;
+    }
+
+    /**
+     * @return JsonLdOutputter
+     */
+    protected function getJsonLdOutputter()
+    {
+        if (!$this->jsonLdOutputter) {
+            $this->setJsonLdOutputter(new JsonLdOutputter($this));
+        }
+
+        return $this->jsonLdOutputter;
+    }
+
+    /**
+     * @param JsonLdOutputter $jsonLdOutputter
+     */
+    protected function setJsonLdOutputter($jsonLdOutputter)
+    {
+        $this->jsonLdOutputter = $jsonLdOutputter;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProperties()
+    {
+        return $this->properties;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }

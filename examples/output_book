@@ -5,6 +5,7 @@ require '../vendor/autoload.php';
 use NYPL\SchemaBuilder\Schema;
 
 $book = new Schema('Book');
+$book->setId('#record');
 $book->addProperty('additionalType', 'http://schema.org/Product');
 $book->addProperty('name', 'Le concerto');
 $book->addProperty('author', 'Ferchault, Guy');
@@ -21,9 +22,12 @@ $offer->addProperty('businessFunction', 'http://purl.org/goodrelations/v1#LeaseO
 $offer->addProperty('itemOffered', '#record');
 
 $book->addProperty('offers', $offer);
+
 ?>
 <html>
-<head></head>
+<head>
+<?php $book->outputJsonLd(); ?>
+</head>
 <body>
     <div <?php $book->outputMicrodata(); ?> itemid="#record">
         <h1 <?php $book->outputMicrodata('name'); ?>><?php $book->outputProperty('name'); ?></h1>
