@@ -51,9 +51,19 @@ $offer->addProperty('serialNumber', 'CONC91000937');
 $book->addProperty('offers', $offer);
 ```
 
+### Output Schema.org as JSON-LD
+
+When you have finished building your Schema.org object, output it in JSON-LD:
+
+```
+<head>
+...
+<?php $book->outputJsonLd();
+```
+
 ### Output Schema.org as Microdata
 
-When you have finished building your Schema.org object, output it in two ways:
+When you have finished building your Schema.org object, you can output it in two ways:
 
 #### 1. Properties Only
 
