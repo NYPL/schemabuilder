@@ -10,7 +10,8 @@ class Schema extends Model
     const EXCEPTION_SCHEMA_TYPE_REQUIRED = 'Type is required for Schema.org object';
     const EXCEPTION_SCHEMA_TYPE_INVALID = 'Schema.org type does not appear to be valid';
     const EXCEPTION_PROPERTY_NAME_REQUIRED = 'Property name is required';
-    const EXCEPTION_PROPERTY_VALUE_INVALID = 'Property value cannot be null';
+    const EXCEPTION_PROPERTY_VALUE_EMPTY = 'Property value cannot be null';
+    const EXCEPTION_PROPERTY_VALUE_INVALID = 'Property value does not appear to be a valid type';
     const EXCEPTION_PROPERTY_DOES_NOT_EXIST = 'Property specified does not exist';
     const EXCEPTION_PROPERTY_ALREADY_EXISTS = 'Property specified already exists';
 
@@ -111,7 +112,15 @@ class Schema extends Model
     protected function checkPropertyValue($propertyValue = null)
     {
         if ($propertyValue === null) {
-            throw new \InvalidArgumentException(self::EXCEPTION_PROPERTY_VALUE_INVALID . ': '  . $propertyValue);
+            throw new \InvalidArgumentException(self::EXCEPTION_PROPERTY_VALUE_EMPTY . ': '  . $propertyValue);
+        }
+
+        if (!is_bool($propertyValue) && !is_int($propertyValue) && !is_float($propertyValue) &&
+            !is_string($propertyValue) && !$propertyValue instanceof Schema
+        ) {
+            throw new \InvalidArgumentException(
+                self::EXCEPTION_PROPERTY_VALUE_INVALID . ': '  . gettype($propertyValue)
+            );
         }
     }
 

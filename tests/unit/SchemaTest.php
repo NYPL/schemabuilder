@@ -45,13 +45,24 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage \NYPL\SchemaBuilder\Schema::EXCEPTION_PROPERTY_VALUE_INVALID
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Schema::EXCEPTION_PROPERTY_VALUE_EMPTY
      */
     public function testSetPropertyWithNullValueThrowsException()
     {
         $schema = new Schema('Book');
 
         $schema->addProperty('name', null);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage \NYPL\SchemaBuilder\Schema::EXCEPTION_PROPERTY_VALUE_INVALID
+     */
+    public function testSetPropertyWithInvalidValueThrowsException()
+    {
+        $schema = new Schema('Book');
+
+        $schema->addProperty('name', array('Value'));
     }
 
     public function testSetPropertySetsProperty()
