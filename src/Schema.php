@@ -114,14 +114,6 @@ class Schema extends Model
         if ($propertyValue === null) {
             throw new \InvalidArgumentException(self::EXCEPTION_PROPERTY_VALUE_EMPTY . ': '  . $propertyValue);
         }
-
-        if (!is_bool($propertyValue) && !is_int($propertyValue) && !is_float($propertyValue) &&
-            !is_string($propertyValue) && !$propertyValue instanceof Schema
-        ) {
-            throw new \InvalidArgumentException(
-                self::EXCEPTION_PROPERTY_VALUE_INVALID . ': '  . gettype($propertyValue)
-            );
-        }
     }
 
     /**

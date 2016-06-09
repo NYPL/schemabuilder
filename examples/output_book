@@ -10,6 +10,14 @@ $book->addProperty('additionalType', 'http://schema.org/Product');
 $book->addProperty('name', 'Le concerto');
 $book->addProperty('author', 'Ferchault, Guy');
 
+$history = new Schema('Thing');
+$history->addProperty('name', 'History');
+
+$france = new Schema('Thing');
+$france->addProperty('name', 'France');
+
+$book->addProperty('about', [$history, $france]);
+
 $offer = new Schema('Offer');
 $offer->addProperty('availability', 'http://schema.org/InStock');
 $offer->addProperty('serialNumber', 'CONC91000937');

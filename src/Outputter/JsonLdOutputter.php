@@ -87,12 +87,29 @@ class JsonLdOutputter extends Outputter
                 $this->append(
                     '"@type": "' . $value->getType() . '"',
                     $indentLevel + 1,
-                    !(bool) $value->getProperties()
+                    !(bool)$value->getProperties()
                 );
 
                 $this->generatePropertiesJsonLd($value, $indentLevel + 1);
 
                 $this->append('}', $indentLevel, $isExcludeComma);
+            } elseif (is_array($value)) {
+                $this->append('"' . $property . '": [', $indentLevel, true);
+
+                foreach ($value as $key => $schemaValue) {
+                    $this->append('{', $indentLevel + 1, true);
+
+                    $this->append(
+                        '"@type": "' . $schemaValue->getType() . '"',
+                        $indentLevel + 2
+                    );
+
+                    $this->generatePropertiesJsonLd($schemaValue, $indentLevel + 2);
+
+                    $this->append('}', $indentLevel + 1, (count($value) - 1) == $key);
+                }
+
+                $this->append(']', $indentLevel, $isExcludeComma);
             } else {
                 $value = htmlentities($value);
 
