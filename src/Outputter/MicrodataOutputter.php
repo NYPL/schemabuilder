@@ -89,7 +89,7 @@ class MicrodataOutputter extends Outputter
      *
      * @return string
      */
-    protected function getPropertyWithWrapper($propertyName = '', $wrapperName = '', array $wrapperAttributes = [])
+    protected function getPropertyWithWrapper($propertyName = '', $wrapperName = '', array $wrapperAttributes = array())
     {
         $this->checkWrapper($wrapperName);
 

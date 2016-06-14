@@ -46,7 +46,7 @@ class Wrapper
      *
      * @return string
      */
-    public function output(array $wrapperAttributes = [])
+    public function output(array $wrapperAttributes = array())
     {
         $wrapperAttributes = array_merge($this->getWrapperAttributes(), $wrapperAttributes);
 
