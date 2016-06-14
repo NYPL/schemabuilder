@@ -28,7 +28,7 @@ class Schema extends Model
     /**
      * @var array
      */
-    protected $properties = [];
+    protected $properties = array();
 
     /**
      * @var MicrodataOutputter
