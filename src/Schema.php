@@ -121,7 +121,7 @@ class Schema extends Model
      *
      * @return bool
      */
-    protected function isPropertyExists($propertyName = '')
+    public function isPropertyExists($propertyName = '')
     {
         if (!array_key_exists($propertyName, $this->properties)) {
             return false;
