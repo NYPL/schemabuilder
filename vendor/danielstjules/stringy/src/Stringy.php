@@ -64,7 +64,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  mixed   $str      Value to modify, after being cast to string
      * @param  string  $encoding The character encoding
-     * @return Stringy A Stringy object
+     * @return static A Stringy object
      * @throws \InvalidArgumentException if an array or object without a
      *         __toString method is passed as the first argument
      */
@@ -87,7 +87,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Returns a new string with $string appended.
      *
      * @param  string  $string The string to append
-     * @return Stringy Object with appended $string
+     * @return static Object with appended $string
      */
     public function append($string)
     {
@@ -98,7 +98,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Returns the character at $index, with indexes starting at 0.
      *
      * @param  int     $index Position of the character
-     * @return Stringy The character at $index
+     * @return static The character at $index
      */
     public function at($index)
     {
@@ -111,9 +111,9 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * search for the start string.
      *
      * @param  string $start  Delimiter marking the start of the substring
-     * @param  string $end    Delimiter marketing the end of the substring
+     * @param  string $end    Delimiter marking the end of the substring
      * @param  int    $offset Index from which to begin the search
-     * @return Stringy Object whose $str has been converted to an URL slug
+     * @return static Object whose $str is a substring between $start and $end
      */
     public function between($start, $end, $offset = 0)
     {
@@ -136,7 +136,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * capitalizes letters following digits, spaces, dashes and underscores,
      * and removes spaces, dashes, as well as underscores.
      *
-     * @return Stringy Object with $str in camelCase
+     * @return static Object with $str in camelCase
      */
     public function camelize()
     {
@@ -187,7 +187,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * single space. This includes tabs and newline characters, as well as
      * multibyte whitespace such as the thin space and ideographic space.
      *
-     * @return Stringy Object with a trimmed $str and condensed whitespace
+     * @return static Object with a trimmed $str and condensed whitespace
      */
     public function collapseWhitespace()
     {
@@ -298,7 +298,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * inserted before uppercase characters (with the exception of the first
      * character of the string), and in place of spaces as well as underscores.
      *
-     * @return Stringy Object with a dasherized $str
+     * @return static Object with a dasherized $str
      */
     public function dasherize()
     {
@@ -312,7 +312,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * and underscores. Alpha delimiters are not converted to lowercase.
      *
      * @param  string  $delimiter Sequence used to separate parts of the string
-     * @return Stringy Object with a delimited $str
+     * @return static Object with a delimited $str
      */
     public function delimit($delimiter)
     {
@@ -354,11 +354,36 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
     }
 
     /**
+     * Returns true if the string ends with any of $substrings, false otherwise.
+     * By default, the comparison is case-sensitive, but can be made insensitive
+     * by setting $caseSensitive to false.
+     *
+     * @param  string[] $substrings    Substrings to look for
+     * @param  bool     $caseSensitive Whether or not to enforce
+     *                                 case-sensitivity
+     * @return bool     Whether or not $str ends with $substring
+     */
+    public function endsWithAny($substrings, $caseSensitive = true)
+    {
+        if (empty($substrings)) {
+            return false;
+        }
+
+        foreach ($substrings as $substring) {
+            if ($this->endsWith($substring, $caseSensitive)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Ensures that the string begins with $substring. If it doesn't, it's
      * prepended.
      *
      * @param  string  $substring The substring to add if not present
-     * @return Stringy Object with its $str prefixed by the $substring
+     * @return static Object with its $str prefixed by the $substring
      */
     public function ensureLeft($substring)
     {
@@ -376,7 +401,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * appended.
      *
      * @param  string  $substring The substring to add if not present
-     * @return Stringy Object with its $str suffixed by the $substring
+     * @return static Object with its $str suffixed by the $substring
      */
     public function ensureRight($substring)
     {
@@ -393,7 +418,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Returns the first $n characters of the string.
      *
      * @param  int     $n Number of characters to retrieve from the start
-     * @return Stringy Object with its $str being the first $n chars
+     * @return static Object with its $str being the first $n chars
      */
     public function first($n)
     {
@@ -459,7 +484,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * http://php.net/manual/en/function.html-entity-decode.php
      *
      * @param  int|null $flags Optional flags
-     * @return Stringy  Object with the resulting $str after being html decoded.
+     * @return static  Object with the resulting $str after being html decoded.
      */
     public function htmlDecode($flags = ENT_COMPAT)
     {
@@ -474,7 +499,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * for a list of flags.
      *
      * @param  int|null $flags Optional flags
-     * @return Stringy  Object with the resulting $str after being html encoded.
+     * @return static  Object with the resulting $str after being html encoded.
      */
     public function htmlEncode($flags = ENT_COMPAT)
     {
@@ -487,7 +512,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Capitalizes the first word of the string, replaces underscores with
      * spaces, and strips '_id'.
      *
-     * @return Stringy Object with a humanized $str
+     * @return static Object with a humanized $str
      */
     public function humanize()
     {
@@ -532,7 +557,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  string  $substring String to be inserted
      * @param  int     $index     The index at which to insert the substring
-     * @return Stringy Object with the resulting $str after the insertion
+     * @return static Object with the resulting $str after the insertion
      */
     public function insert($substring, $index)
     {
@@ -659,7 +684,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Returns the last $n characters of the string.
      *
      * @param  int     $n Number of characters to retrieve from the end
-     * @return Stringy Object with its $str being the last $n chars
+     * @return static Object with its $str being the last $n chars
      */
     public function last($n)
     {
@@ -687,7 +712,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Splits on newlines and carriage returns, returning an array of Stringy
      * objects corresponding to the lines in the string.
      *
-     * @return Stringy[] An array of Stringy objects
+     * @return static[] An array of Stringy objects
      */
     public function lines()
     {
@@ -703,7 +728,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Returns the longest common prefix between the string and $otherStr.
      *
      * @param  string  $otherStr Second string for comparison
-     * @return Stringy Object with its $str being the longest common prefix
+     * @return static Object with its $str being the longest common prefix
      */
     public function longestCommonPrefix($otherStr)
     {
@@ -728,7 +753,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Returns the longest common suffix between the string and $otherStr.
      *
      * @param  string  $otherStr Second string for comparison
-     * @return Stringy Object with its $str being the longest common suffix
+     * @return static Object with its $str being the longest common suffix
      */
     public function longestCommonSuffix($otherStr)
     {
@@ -754,7 +779,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * In the case of ties, it returns that which occurs first.
      *
      * @param  string  $otherStr Second string for comparison
-     * @return Stringy Object with its $str being the longest common substring
+     * @return static Object with its $str being the longest common substring
      */
     public function longestCommonSubstring($otherStr)
     {
@@ -801,7 +826,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
     /**
      * Converts the first character of the string to lower case.
      *
-     * @return Stringy Object with the first character of $str being lower case
+     * @return static Object with the first character of $str being lower case
      */
     public function lowerCaseFirst()
     {
@@ -894,7 +919,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * @param  int     $length  Desired string length after padding
      * @param  string  $padStr  String used to pad, defaults to space
      * @param  string  $padType One of 'left', 'right', 'both'
-     * @return Stringy Object with a padded $str
+     * @return static Object with a padded $str
      * @throws /InvalidArgumentException If $padType isn't one of 'right',
      *         'left' or 'both'
      */
@@ -921,7 +946,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  int     $length Desired string length after padding
      * @param  string  $padStr String used to pad, defaults to space
-     * @return Stringy String with padding applied
+     * @return static String with padding applied
      */
     public function padBoth($length, $padStr = ' ')
     {
@@ -937,7 +962,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  int     $length Desired string length after padding
      * @param  string  $padStr String used to pad, defaults to space
-     * @return Stringy String with left padding
+     * @return static String with left padding
      */
     public function padLeft($length, $padStr = ' ')
     {
@@ -950,7 +975,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  int     $length Desired string length after padding
      * @param  string  $padStr String used to pad, defaults to space
-     * @return Stringy String with right padding
+     * @return static String with right padding
      */
     public function padRight($length, $padStr = ' ')
     {
@@ -961,7 +986,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Returns a new string starting with $string.
      *
      * @param  string  $string The string to append
-     * @return Stringy Object with appended $string
+     * @return static Object with appended $string
      */
     public function prepend($string)
     {
@@ -978,7 +1003,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * @param  string  $pattern     The regular expression pattern
      * @param  string  $replacement The string to replace with
      * @param  string  $options     Matching conditions to be used
-     * @return Stringy Object with the resulting $str after the replacements
+     * @return static Object with the resulting $str after the replacements
      */
     public function regexReplace($pattern, $replacement, $options = 'msr')
     {
@@ -995,7 +1020,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Returns a new string with the prefix $substring removed, if present.
      *
      * @param  string  $substring The prefix to remove
-     * @return Stringy Object having a $str without the prefix $substring
+     * @return static Object having a $str without the prefix $substring
      */
     public function removeLeft($substring)
     {
@@ -1013,7 +1038,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Returns a new string with the suffix $substring removed, if present.
      *
      * @param  string  $substring The suffix to remove
-     * @return Stringy Object having a $str without the suffix $substring
+     * @return static Object having a $str without the suffix $substring
      */
     public function removeRight($substring)
     {
@@ -1031,7 +1056,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Returns a repeated string given a multiplier. An alias for str_repeat.
      *
      * @param  int     $multiplier The number of times to repeat the string
-     * @return Stringy Object with a repeated str
+     * @return static Object with a repeated str
      */
     public function repeat($multiplier)
     {
@@ -1045,7 +1070,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  string  $search      The needle to search for
      * @param  string  $replacement The string to replace with
-     * @return Stringy Object with the resulting $str after the replacements
+     * @return static Object with the resulting $str after the replacements
      */
     public function replace($search, $replacement)
     {
@@ -1055,7 +1080,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
     /**
      * Returns a reversed string. A multibyte version of strrev().
      *
-     * @return Stringy Object with a reversed $str
+     * @return static Object with a reversed $str
      */
     public function reverse()
     {
@@ -1078,7 +1103,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  int     $length    Desired length of the truncated string
      * @param  string  $substring The substring to append if it can fit
-     * @return Stringy Object with the resulting $str after truncating
+     * @return static Object with the resulting $str after truncating
      */
     public function safeTruncate($length, $substring = '')
     {
@@ -1098,7 +1123,9 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
         if (mb_strpos($stringy->str, ' ', $length - 1, $encoding) != $length) {
             // Find pos of the last occurrence of a space, get up to that
             $lastPos = \mb_strrpos($truncated, ' ', 0, $encoding);
-            $truncated = \mb_substr($truncated, 0, $lastPos, $encoding);
+            if ($lastPos !== false) {
+                $truncated = \mb_substr($truncated, 0, $lastPos, $encoding);
+            }
         }
 
         $stringy->str = $truncated . $substring;
@@ -1110,7 +1137,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * A multibyte str_shuffle() function. It returns a string with its
      * characters in random order.
      *
-     * @return Stringy Object with a shuffled $str
+     * @return static Object with a shuffled $str
      */
     public function shuffle()
     {
@@ -1133,7 +1160,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * is also converted to lowercase.
      *
      * @param  string  $replacement The string used to replace whitespace
-     * @return Stringy Object whose $str has been converted to an URL slug
+     * @return static Object whose $str has been converted to an URL slug
      */
     public function slugify($replacement = '-')
     {
@@ -1171,6 +1198,31 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
     }
 
     /**
+     * Returns true if the string begins with any of $substrings, false
+     * otherwise. By default the comparison is case-sensitive, but can be made
+     * insensitive by setting $caseSensitive to false.
+     *
+     * @param  string[] $substrings    Substrings to look for
+     * @param  bool     $caseSensitive Whether or not to enforce
+     *                                 case-sensitivity
+     * @return bool     Whether or not $str starts with $substring
+     */
+    public function startsWithAny($substrings, $caseSensitive = true)
+    {
+        if (empty($substrings)) {
+            return false;
+        }
+
+        foreach ($substrings as $substring) {
+            if ($this->startsWith($substring, $caseSensitive)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the substring beginning at $start, and up to, but not including
      * the index specified by $end. If $end is omitted, the function extracts
      * the remaining string. If $end is negative, it is computed from the end
@@ -1178,7 +1230,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  int     $start Initial index from which to begin extraction
      * @param  int     $end   Optional index at which to end extraction
-     * @return Stringy Object with its $str being the extracted substring
+     * @return static Object with its $str being the extracted substring
      */
     public function slice($start, $end = null)
     {
@@ -1192,9 +1244,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
             $length = $end - $start;
         }
 
-        $str = \mb_substr($this->str, $start, $length, $this->encoding);
-
-        return static::create($str, $this->encoding);
+        return $this->substr($start, $length);
     }
 
     /**
@@ -1204,7 +1254,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  string    $pattern The regex with which to split the string
      * @param  int       $limit   Optional maximum number of results to return
-     * @return Stringy[] An array of Stringy objects
+     * @return static[] An array of Stringy objects
      */
     public function split($pattern, $limit = null)
     {
@@ -1250,13 +1300,25 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
     }
 
     /**
+     * Strip all whitespace characters. This includes tabs and newline
+     * characters, as well as multibyte whitespace such as the thin space
+     * and ideographic space.
+     *
+     * @return static Object with whitespace stripped
+     */
+    public function stripWhitespace()
+    {
+        return $this->regexReplace('[[:space:]]+', '');
+    }
+
+    /**
      * Returns the substring beginning at $start with the specified $length.
      * It differs from the mb_substr() function in that providing a $length of
      * null will return the rest of the string, rather than an empty string.
      *
      * @param  int     $start  Position of the first character to use
      * @param  int     $length Maximum number of characters used
-     * @return Stringy Object with its $str being the substring
+     * @return static Object with its $str being the substring
      */
     public function substr($start, $length = null)
     {
@@ -1270,7 +1332,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Surrounds $str with the given substring.
      *
      * @param  string  $substring The substring to add to both sides
-     * @return Stringy Object whose $str had the substring both prepended and
+     * @return static Object whose $str had the substring both prepended and
      *                 appended
      */
     public function surround($substring)
@@ -1283,7 +1345,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
     /**
      * Returns a case swapped version of the string.
      *
-     * @return Stringy Object whose $str has each character's case swapped
+     * @return static Object whose $str has each character's case swapped
      */
     public function swapCase()
     {
@@ -1310,7 +1372,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Windows-1252 (commonly used in Word documents) replaced by their ASCII
      * equivalents.
      *
-     * @return Stringy Object whose $str has those characters removed
+     * @return static Object whose $str has those characters removed
      */
     public function tidy()
     {
@@ -1335,7 +1397,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * capitalized.
      *
      * @param  array   $ignore An array of words not to capitalize
-     * @return Stringy Object with a titleized $str
+     * @return static Object with a titleized $str
      */
     public function titleize($ignore = null)
     {
@@ -1366,7 +1428,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  bool    $removeUnsupported Whether or not to remove the
      *                                    unsupported characters
-     * @return Stringy Object whose $str contains only ASCII characters
+     * @return static Object whose $str contains only ASCII characters
      */
     public function toAscii($removeUnsupported = true)
     {
@@ -1421,7 +1483,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Converts all characters in the string to lowercase. An alias for PHP's
      * mb_strtolower().
      *
-     * @return Stringy Object with all characters of $str being lowercase
+     * @return static Object with all characters of $str being lowercase
      */
     public function toLowerCase()
     {
@@ -1435,7 +1497,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * $tabLength. By default, each tab is converted to 4 consecutive spaces.
      *
      * @param  int     $tabLength Number of spaces to replace each tab with
-     * @return Stringy Object whose $str has had tabs switched to spaces
+     * @return static Object whose $str has had tabs switched to spaces
      */
     public function toSpaces($tabLength = 4)
     {
@@ -1451,7 +1513,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * are converted to a tab.
      *
      * @param  int     $tabLength Number of spaces to replace with a tab
-     * @return Stringy Object whose $str has had spaces switched to tabs
+     * @return static Object whose $str has had spaces switched to tabs
      */
     public function toTabs($tabLength = 4)
     {
@@ -1464,7 +1526,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
     /**
      * Converts the first character of each word in the string to uppercase.
      *
-     * @return Stringy Object with all characters of $str being title-cased
+     * @return static Object with all characters of $str being title-cased
      */
     public function toTitleCase()
     {
@@ -1477,7 +1539,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Converts all characters in the string to uppercase. An alias for PHP's
      * mb_strtoupper().
      *
-     * @return Stringy Object with all characters of $str being uppercase
+     * @return static Object with all characters of $str being uppercase
      */
     public function toUpperCase()
     {
@@ -1492,7 +1554,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * string of characters to strip instead of the defaults.
      *
      * @param  string  $chars Optional string of characters to strip
-     * @return Stringy Object with a trimmed $str
+     * @return static Object with a trimmed $str
      */
     public function trim($chars = null)
     {
@@ -1507,7 +1569,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * string of characters to strip instead of the defaults.
      *
      * @param  string  $chars Optional string of characters to strip
-     * @return Stringy Object with a trimmed $str
+     * @return static Object with a trimmed $str
      */
     public function trimLeft($chars = null)
     {
@@ -1522,7 +1584,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * string of characters to strip instead of the defaults.
      *
      * @param  string  $chars Optional string of characters to strip
-     * @return Stringy Object with a trimmed $str
+     * @return static Object with a trimmed $str
      */
     public function trimRight($chars = null)
     {
@@ -1538,7 +1600,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @param  int     $length    Desired length of the truncated string
      * @param  string  $substring The substring to append if it can fit
-     * @return Stringy Object with the resulting $str after truncating
+     * @return static Object with the resulting $str after truncating
      */
     public function truncate($length, $substring = '')
     {
@@ -1563,7 +1625,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * of the first character of the string), and in place of spaces as well as
      * dashes.
      *
-     * @return Stringy Object with an underscored $str
+     * @return static Object with an underscored $str
      */
     public function underscored()
     {
@@ -1575,7 +1637,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * surrounding spaces, capitalizes letters following digits, spaces, dashes
      * and underscores, and removes spaces, dashes, underscores.
      *
-     * @return Stringy Object with $str in UpperCamelCase
+     * @return static Object with $str in UpperCamelCase
      */
     public function upperCamelize()
     {
@@ -1585,7 +1647,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
     /**
      * Converts the first character of the supplied string to upper case.
      *
-     * @return Stringy Object with the first character of $str being upper case
+     * @return static Object with the first character of $str being upper case
      */
     public function upperCaseFirst()
     {
@@ -1609,65 +1671,68 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
         if (isset($charsArray)) return $charsArray;
 
         return $charsArray = array(
-            '0'    => array('°', '₀', '۰'),
-            '1'    => array('¹', '₁', '۱'),
-            '2'    => array('²', '₂', '۲'),
-            '3'    => array('³', '₃', '۳'),
-            '4'    => array('⁴', '₄', '۴', '٤'),
-            '5'    => array('⁵', '₅', '۵', '٥'),
-            '6'    => array('⁶', '₆', '۶', '٦'),
-            '7'    => array('⁷', '₇', '۷'),
-            '8'    => array('⁸', '₈', '۸'),
-            '9'    => array('⁹', '₉', '۹'),
+            '0'    => array('°', '₀', '۰', '０'),
+            '1'    => array('¹', '₁', '۱', '１'),
+            '2'    => array('²', '₂', '۲', '２'),
+            '3'    => array('³', '₃', '۳', '３'),
+            '4'    => array('⁴', '₄', '۴', '٤', '４'),
+            '5'    => array('⁵', '₅', '۵', '٥', '５'),
+            '6'    => array('⁶', '₆', '۶', '٦', '６'),
+            '7'    => array('⁷', '₇', '۷', '７'),
+            '8'    => array('⁸', '₈', '۸', '８'),
+            '9'    => array('⁹', '₉', '۹', '９'),
             'a'    => array('à', 'á', 'ả', 'ã', 'ạ', 'ă', 'ắ', 'ằ', 'ẳ', 'ẵ',
                             'ặ', 'â', 'ấ', 'ầ', 'ẩ', 'ẫ', 'ậ', 'ā', 'ą', 'å',
                             'α', 'ά', 'ἀ', 'ἁ', 'ἂ', 'ἃ', 'ἄ', 'ἅ', 'ἆ', 'ἇ',
                             'ᾀ', 'ᾁ', 'ᾂ', 'ᾃ', 'ᾄ', 'ᾅ', 'ᾆ', 'ᾇ', 'ὰ', 'ά',
                             'ᾰ', 'ᾱ', 'ᾲ', 'ᾳ', 'ᾴ', 'ᾶ', 'ᾷ', 'а', 'أ', 'အ',
-                            'ာ', 'ါ', 'ǻ', 'ǎ', 'ª', 'ა', 'अ', 'ا'),
-            'b'    => array('б', 'β', 'Ъ', 'Ь', 'ب', 'ဗ', 'ბ'),
-            'c'    => array('ç', 'ć', 'č', 'ĉ', 'ċ'),
+                            'ာ', 'ါ', 'ǻ', 'ǎ', 'ª', 'ა', 'अ', 'ا', 'ａ'),
+            'b'    => array('б', 'β', 'Ъ', 'Ь', 'ب', 'ဗ', 'ბ', 'ｂ'),
+            'c'    => array('ç', 'ć', 'č', 'ĉ', 'ċ', 'ｃ'),
             'd'    => array('ď', 'ð', 'đ', 'ƌ', 'ȡ', 'ɖ', 'ɗ', 'ᵭ', 'ᶁ', 'ᶑ',
-                            'д', 'δ', 'د', 'ض', 'ဍ', 'ဒ', 'დ'),
+                            'д', 'δ', 'د', 'ض', 'ဍ', 'ဒ', 'დ', 'ｄ'),
             'e'    => array('é', 'è', 'ẻ', 'ẽ', 'ẹ', 'ê', 'ế', 'ề', 'ể', 'ễ',
                             'ệ', 'ë', 'ē', 'ę', 'ě', 'ĕ', 'ė', 'ε', 'έ', 'ἐ',
                             'ἑ', 'ἒ', 'ἓ', 'ἔ', 'ἕ', 'ὲ', 'έ', 'е', 'ё', 'э',
-                            'є', 'ə', 'ဧ', 'ေ', 'ဲ', 'ე', 'ए', 'إ', 'ئ'),
-            'f'    => array('ф', 'φ', 'ف', 'ƒ', 'ფ'),
-            'g'    => array('ĝ', 'ğ', 'ġ', 'ģ', 'г', 'ґ', 'γ', 'ဂ', 'გ', 'گ'),
-            'h'    => array('ĥ', 'ħ', 'η', 'ή', 'ح', 'ه', 'ဟ', 'ှ', 'ჰ'),
+                            'є', 'ə', 'ဧ', 'ေ', 'ဲ', 'ე', 'ए', 'إ', 'ئ', 'ｅ'),
+            'f'    => array('ф', 'φ', 'ف', 'ƒ', 'ფ', 'ｆ'),
+            'g'    => array('ĝ', 'ğ', 'ġ', 'ģ', 'г', 'ґ', 'γ', 'ဂ', 'გ', 'گ',
+                            'ｇ'),
+            'h'    => array('ĥ', 'ħ', 'η', 'ή', 'ح', 'ه', 'ဟ', 'ှ', 'ჰ', 'ｈ'),
             'i'    => array('í', 'ì', 'ỉ', 'ĩ', 'ị', 'î', 'ï', 'ī', 'ĭ', 'į',
                             'ı', 'ι', 'ί', 'ϊ', 'ΐ', 'ἰ', 'ἱ', 'ἲ', 'ἳ', 'ἴ',
                             'ἵ', 'ἶ', 'ἷ', 'ὶ', 'ί', 'ῐ', 'ῑ', 'ῒ', 'ΐ', 'ῖ',
                             'ῗ', 'і', 'ї', 'и', 'ဣ', 'ိ', 'ီ', 'ည်', 'ǐ', 'ი',
-                            'इ', 'ی'),
-            'j'    => array('ĵ', 'ј', 'Ј', 'ჯ', 'ج'),
+                            'इ', 'ی', 'ｉ'),
+            'j'    => array('ĵ', 'ј', 'Ј', 'ჯ', 'ج', 'ｊ'),
             'k'    => array('ķ', 'ĸ', 'к', 'κ', 'Ķ', 'ق', 'ك', 'က', 'კ', 'ქ',
-                            'ک'),
-            'l'    => array('ł', 'ľ', 'ĺ', 'ļ', 'ŀ', 'л', 'λ', 'ل', 'လ', 'ლ'),
-            'm'    => array('м', 'μ', 'م', 'မ', 'მ'),
+                            'ک', 'ｋ'),
+            'l'    => array('ł', 'ľ', 'ĺ', 'ļ', 'ŀ', 'л', 'λ', 'ل', 'လ', 'ლ',
+                            'ｌ'),
+            'm'    => array('м', 'μ', 'م', 'မ', 'მ', 'ｍ'),
             'n'    => array('ñ', 'ń', 'ň', 'ņ', 'ŉ', 'ŋ', 'ν', 'н', 'ن', 'န',
-                            'ნ'),
+                            'ნ', 'ｎ'),
             'o'    => array('ó', 'ò', 'ỏ', 'õ', 'ọ', 'ô', 'ố', 'ồ', 'ổ', 'ỗ',
                             'ộ', 'ơ', 'ớ', 'ờ', 'ở', 'ỡ', 'ợ', 'ø', 'ō', 'ő',
                             'ŏ', 'ο', 'ὀ', 'ὁ', 'ὂ', 'ὃ', 'ὄ', 'ὅ', 'ὸ', 'ό',
-                            'о', 'و', 'θ', 'ို', 'ǒ', 'ǿ', 'º', 'ო', 'ओ'),
-            'p'    => array('п', 'π', 'ပ', 'პ', 'پ'),
-            'q'    => array('ყ'),
-            'r'    => array('ŕ', 'ř', 'ŗ', 'р', 'ρ', 'ر', 'რ'),
+                            'о', 'و', 'θ', 'ို', 'ǒ', 'ǿ', 'º', 'ო', 'ओ', 'ｏ'),
+            'p'    => array('п', 'π', 'ပ', 'პ', 'پ', 'ｐ'),
+            'q'    => array('ყ', 'ｑ'),
+            'r'    => array('ŕ', 'ř', 'ŗ', 'р', 'ρ', 'ر', 'რ', 'ｒ'),
             's'    => array('ś', 'š', 'ş', 'с', 'σ', 'ș', 'ς', 'س', 'ص', 'စ',
-                            'ſ', 'ს'),
+                            'ſ', 'ს', 'ｓ'),
             't'    => array('ť', 'ţ', 'т', 'τ', 'ț', 'ت', 'ط', 'ဋ', 'တ', 'ŧ',
-                            'თ', 'ტ'),
+                            'თ', 'ტ', 'ｔ'),
             'u'    => array('ú', 'ù', 'ủ', 'ũ', 'ụ', 'ư', 'ứ', 'ừ', 'ử', 'ữ',
                             'ự', 'û', 'ū', 'ů', 'ű', 'ŭ', 'ų', 'µ', 'у', 'ဉ',
-                            'ု', 'ူ', 'ǔ', 'ǖ', 'ǘ', 'ǚ', 'ǜ', 'უ', 'उ'),
-            'v'    => array('в', 'ვ', 'ϐ'),
-            'w'    => array('ŵ', 'ω', 'ώ', 'ဝ', 'ွ'),
-            'x'    => array('χ', 'ξ'),
+                            'ု', 'ူ', 'ǔ', 'ǖ', 'ǘ', 'ǚ', 'ǜ', 'უ', 'उ', 'ｕ',
+                            'ў'),
+            'v'    => array('в', 'ვ', 'ϐ', 'ｖ'),
+            'w'    => array('ŵ', 'ω', 'ώ', 'ဝ', 'ွ', 'ｗ'),
+            'x'    => array('χ', 'ξ', 'ｘ'),
             'y'    => array('ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ', 'ÿ', 'ŷ', 'й', 'ы', 'υ',
-                            'ϋ', 'ύ', 'ΰ', 'ي', 'ယ'),
-            'z'    => array('ź', 'ž', 'ż', 'з', 'ζ', 'ز', 'ဇ', 'ზ'),
+                            'ϋ', 'ύ', 'ΰ', 'ي', 'ယ', 'ｙ'),
+            'z'    => array('ź', 'ž', 'ż', 'з', 'ζ', 'ز', 'ဇ', 'ზ', 'ｚ'),
             'aa'   => array('ع', 'आ', 'آ'),
             'ae'   => array('ä', 'æ', 'ǽ'),
             'ai'   => array('ऐ'),
@@ -1702,41 +1767,45 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
                             'Ặ', 'Â', 'Ấ', 'Ầ', 'Ẩ', 'Ẫ', 'Ậ', 'Å', 'Ā', 'Ą',
                             'Α', 'Ά', 'Ἀ', 'Ἁ', 'Ἂ', 'Ἃ', 'Ἄ', 'Ἅ', 'Ἆ', 'Ἇ',
                             'ᾈ', 'ᾉ', 'ᾊ', 'ᾋ', 'ᾌ', 'ᾍ', 'ᾎ', 'ᾏ', 'Ᾰ', 'Ᾱ',
-                            'Ὰ', 'Ά', 'ᾼ', 'А', 'Ǻ', 'Ǎ'),
-            'B'    => array('Б', 'Β', 'ब'),
-            'C'    => array('Ç','Ć', 'Č', 'Ĉ', 'Ċ'),
-            'D'    => array('Ď', 'Ð', 'Đ', 'Ɖ', 'Ɗ', 'Ƌ', 'ᴅ', 'ᴆ', 'Д', 'Δ'),
+                            'Ὰ', 'Ά', 'ᾼ', 'А', 'Ǻ', 'Ǎ', 'Ａ'),
+            'B'    => array('Б', 'Β', 'ब', 'Ｂ'),
+            'C'    => array('Ç','Ć', 'Č', 'Ĉ', 'Ċ', 'Ｃ'),
+            'D'    => array('Ď', 'Ð', 'Đ', 'Ɖ', 'Ɗ', 'Ƌ', 'ᴅ', 'ᴆ', 'Д', 'Δ',
+                            'Ｄ'),
             'E'    => array('É', 'È', 'Ẻ', 'Ẽ', 'Ẹ', 'Ê', 'Ế', 'Ề', 'Ể', 'Ễ',
                             'Ệ', 'Ë', 'Ē', 'Ę', 'Ě', 'Ĕ', 'Ė', 'Ε', 'Έ', 'Ἐ',
                             'Ἑ', 'Ἒ', 'Ἓ', 'Ἔ', 'Ἕ', 'Έ', 'Ὲ', 'Е', 'Ё', 'Э',
-                            'Є', 'Ə'),
-            'F'    => array('Ф', 'Φ'),
-            'G'    => array('Ğ', 'Ġ', 'Ģ', 'Г', 'Ґ', 'Γ'),
-            'H'    => array('Η', 'Ή', 'Ħ'),
+                            'Є', 'Ə', 'Ｅ'),
+            'F'    => array('Ф', 'Φ', 'Ｆ'),
+            'G'    => array('Ğ', 'Ġ', 'Ģ', 'Г', 'Ґ', 'Γ', 'Ｇ'),
+            'H'    => array('Η', 'Ή', 'Ħ', 'Ｈ'),
             'I'    => array('Í', 'Ì', 'Ỉ', 'Ĩ', 'Ị', 'Î', 'Ï', 'Ī', 'Ĭ', 'Į',
                             'İ', 'Ι', 'Ί', 'Ϊ', 'Ἰ', 'Ἱ', 'Ἳ', 'Ἴ', 'Ἵ', 'Ἶ',
-                            'Ἷ', 'Ῐ', 'Ῑ', 'Ὶ', 'Ί', 'И', 'І', 'Ї', 'Ǐ', 'ϒ'),
-            'K'    => array('К', 'Κ'),
-            'L'    => array('Ĺ', 'Ł', 'Л', 'Λ', 'Ļ', 'Ľ', 'Ŀ', 'ल'),
-            'M'    => array('М', 'Μ'),
-            'N'    => array('Ń', 'Ñ', 'Ň', 'Ņ', 'Ŋ', 'Н', 'Ν'),
+                            'Ἷ', 'Ῐ', 'Ῑ', 'Ὶ', 'Ί', 'И', 'І', 'Ї', 'Ǐ', 'ϒ',
+                            'Ｉ'),
+            'J'    => array('Ｊ'),
+            'K'    => array('К', 'Κ', 'Ｋ'),
+            'L'    => array('Ĺ', 'Ł', 'Л', 'Λ', 'Ļ', 'Ľ', 'Ŀ', 'ल', 'Ｌ'),
+            'M'    => array('М', 'Μ', 'Ｍ'),
+            'N'    => array('Ń', 'Ñ', 'Ň', 'Ņ', 'Ŋ', 'Н', 'Ν', 'Ｎ'),
             'O'    => array('Ó', 'Ò', 'Ỏ', 'Õ', 'Ọ', 'Ô', 'Ố', 'Ồ', 'Ổ', 'Ỗ',
                             'Ộ', 'Ơ', 'Ớ', 'Ờ', 'Ở', 'Ỡ', 'Ợ', 'Ø', 'Ō', 'Ő',
                             'Ŏ', 'Ο', 'Ό', 'Ὀ', 'Ὁ', 'Ὂ', 'Ὃ', 'Ὄ', 'Ὅ', 'Ὸ',
-                            'Ό', 'О', 'Θ', 'Ө', 'Ǒ', 'Ǿ'),
-            'P'    => array('П', 'Π'),
-            'R'    => array('Ř', 'Ŕ', 'Р', 'Ρ', 'Ŗ'),
-            'S'    => array('Ş', 'Ŝ', 'Ș', 'Š', 'Ś', 'С', 'Σ'),
-            'T'    => array('Ť', 'Ţ', 'Ŧ', 'Ț', 'Т', 'Τ'),
+                            'Ό', 'О', 'Θ', 'Ө', 'Ǒ', 'Ǿ', 'Ｏ'),
+            'P'    => array('П', 'Π', 'Ｐ'),
+            'Q'    => array('Ｑ'),
+            'R'    => array('Ř', 'Ŕ', 'Р', 'Ρ', 'Ŗ', 'Ｒ'),
+            'S'    => array('Ş', 'Ŝ', 'Ș', 'Š', 'Ś', 'С', 'Σ', 'Ｓ'),
+            'T'    => array('Ť', 'Ţ', 'Ŧ', 'Ț', 'Т', 'Τ', 'Ｔ'),
             'U'    => array('Ú', 'Ù', 'Ủ', 'Ũ', 'Ụ', 'Ư', 'Ứ', 'Ừ', 'Ử', 'Ữ',
                             'Ự', 'Û', 'Ū', 'Ů', 'Ű', 'Ŭ', 'Ų', 'У', 'Ǔ', 'Ǖ',
-                            'Ǘ', 'Ǚ', 'Ǜ'),
-            'V'    => array('В'),
-            'W'    => array('Ω', 'Ώ', 'Ŵ'),
-            'X'    => array('Χ', 'Ξ'),
+                            'Ǘ', 'Ǚ', 'Ǜ', 'Ｕ', 'Ў'),
+            'V'    => array('В', 'Ｖ'),
+            'W'    => array('Ω', 'Ώ', 'Ŵ', 'Ｗ'),
+            'X'    => array('Χ', 'Ξ', 'Ｘ'),
             'Y'    => array('Ý', 'Ỳ', 'Ỷ', 'Ỹ', 'Ỵ', 'Ÿ', 'Ῠ', 'Ῡ', 'Ὺ', 'Ύ',
-                            'Ы', 'Й', 'Υ', 'Ϋ', 'Ŷ'),
-            'Z'    => array('Ź', 'Ž', 'Ż', 'З', 'Ζ'),
+                            'Ы', 'Й', 'Υ', 'Ϋ', 'Ŷ', 'Ｙ'),
+            'Z'    => array('Ź', 'Ž', 'Ż', 'З', 'Ζ', 'Ｚ'),
             'AE'   => array('Ä', 'Æ', 'Ǽ'),
             'CH'   => array('Ч'),
             'DJ'   => array('Ђ'),
@@ -1763,7 +1832,8 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
                             "\xE2\x80\x82", "\xE2\x80\x83", "\xE2\x80\x84",
                             "\xE2\x80\x85", "\xE2\x80\x86", "\xE2\x80\x87",
                             "\xE2\x80\x88", "\xE2\x80\x89", "\xE2\x80\x8A",
-                            "\xE2\x80\xAF", "\xE2\x81\x9F", "\xE3\x80\x80"),
+                            "\xE2\x80\xAF", "\xE2\x81\x9F", "\xE3\x80\x80",
+                            "\xEF\xBE\xA0"),
         );
     }
 
@@ -1774,9 +1844,9 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * @param  int     $left   Length of left padding
      * @param  int     $right  Length of right padding
      * @param  string  $padStr String used to pad
-     * @return Stringy String with padding applied
+     * @return static String with padding applied
      */
-    private function applyPadding($left = 0, $right = 0, $padStr = ' ')
+    protected function applyPadding($left = 0, $right = 0, $padStr = ' ')
     {
         $stringy = static::create($this->str, $this->encoding);
         $length = \mb_strlen($padStr, $stringy->encoding);
@@ -1804,7 +1874,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * @param  string $pattern Regex pattern to match against
      * @return bool   Whether or not $str matches the pattern
      */
-    private function matchesPattern($pattern)
+    protected function matchesPattern($pattern)
     {
         $regexEncoding = $this->regexEncoding();
         $this->regexEncoding($this->encoding);
@@ -1819,7 +1889,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Alias for mb_ereg_replace with a fallback to preg_replace if the
      * mbstring module is not installed.
      */
-    private function eregReplace($pattern, $replacement, $string, $option = 'msr')
+    protected function eregReplace($pattern, $replacement, $string, $option = 'msr')
     {
         static $functionExists;
         if ($functionExists === null) {
@@ -1838,7 +1908,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * Alias for mb_regex_encoding which default to a noop if the mbstring
      * module is not installed.
      */
-    private function regexEncoding()
+    protected function regexEncoding()
     {
         static $functionExists;
 
@@ -1852,15 +1922,16 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
         }
     }
 
-    private function supportsEncoding()
+    protected function supportsEncoding()
     {
         $supported = array('UTF-8' => true, 'ASCII' => true);
 
         if (isset($supported[$this->encoding])) {
             return true;
         } else {
-            throw new \RuntimeExpception('Stringy method requires the ' .
-                'mbstring module for encodings other than ASCII and UTF-8');
+            throw new \RuntimeException('Stringy method requires the ' .
+                'mbstring module for encodings other than ASCII and UTF-8. ' .
+                'Encoding used: ' . $this->encoding);
         }
     }
 }

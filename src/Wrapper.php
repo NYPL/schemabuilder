@@ -1,101 +1,95 @@
 <?php
+
 namespace NYPL\SchemaBuilder;
 
-class Wrapper
-{
-    protected $wrapperName = '';
+class Wrapper {
 
-    protected $content = '';
+  protected $wrapperName = '';
 
-    /**
-     * @var WrapperAttribute[]
-     */
-    protected $wrapperAttributes;
+  protected $content = '';
 
-    /**
-     * @param string $wrapperName
-     */
-    public function __construct($wrapperName = '')
-    {
-        $this->setWrapperName($wrapperName);
+  /**
+   * @var WrapperAttribute[]
+   */
+  protected $wrapperAttributes;
+
+  /**
+   * @param string $wrapperName
+   */
+  public function __construct($wrapperName = '') {
+    $this->setWrapperName($wrapperName);
+  }
+
+  public function addAttribute($name = '', $value = '') {
+    $this->wrapperAttributes[] = new WrapperAttribute($name, $value);
+  }
+
+  /**
+   * @param WrapperAttribute[] $wrapperAttributes
+   *
+   * @return string
+   */
+  public function output(array $wrapperAttributes = []) {
+    $wrapperAttributes = array_merge($this->getWrapperAttributes(), $wrapperAttributes);
+
+    $output = '<' . $this->getWrapperName();
+
+    foreach ($wrapperAttributes as $attribute) {
+      $output .= ' ';
+
+      $output .= htmlentities($attribute->getName());
+
+      if ($attribute->getValue()) {
+        $output .= '="' . htmlentities($attribute->getValue()) . '"';
+      }
     }
 
-    /**
-     * @return string
-     */
-    public function getWrapperName()
-    {
-        return $this->wrapperName;
+    if ($this->getContent()) {
+      $output .= '>' . htmlentities($this->getContent()) . '</' . $this->getWrapperName() . '>';
+    }
+    else {
+      $output .= '>';
     }
 
-    /**
-     * @param string $wrapperName
-     */
-    public function setWrapperName($wrapperName)
-    {
-        $this->wrapperName = $wrapperName;
+    if ($this->wrapperName != 'span') {
+      $output .= "\r\n";
     }
 
-    public function addAttribute($name = '', $value = '')
-    {
-        $this->wrapperAttributes[] = new WrapperAttribute($name, $value);
-    }
+    return $output;
+  }
 
-    /**
-     * @param WrapperAttribute[] $wrapperAttributes
-     *
-     * @return string
-     */
-    public function output(array $wrapperAttributes = [])
-    {
-        $wrapperAttributes = array_merge($this->getWrapperAttributes(), $wrapperAttributes);
+  /**
+   * @return WrapperAttribute[]
+   */
+  public function getWrapperAttributes() {
+    return $this->wrapperAttributes;
+  }
 
-        $output = '<' . $this->getWrapperName();
+  /**
+   * @return string
+   */
+  public function getWrapperName() {
+    return $this->wrapperName;
+  }
 
-        foreach ($wrapperAttributes as $attribute) {
-            $output .= ' ';
+  /**
+   * @param string $wrapperName
+   */
+  public function setWrapperName($wrapperName) {
+    $this->wrapperName = $wrapperName;
+  }
 
-            $output .= htmlentities($attribute->getName());
+  /**
+   * @return string
+   */
+  protected function getContent() {
+    return $this->content;
+  }
 
-            if ($attribute->getValue()) {
-                $output .= '="' . htmlentities($attribute->getValue()) . '"';
-            }
-        }
-
-        if ($this->getContent()) {
-            $output .= '>' . htmlentities($this->getContent()) . '</' . $this->getWrapperName() . '>';
-        } else {
-            $output .= '>';
-        }
-
-        if ($this->wrapperName != 'span') {
-            $output .= "\r\n";
-        }
-
-        return $output;
-    }
-
-    /**
-     * @return WrapperAttribute[]
-     */
-    public function getWrapperAttributes()
-    {
-        return $this->wrapperAttributes;
-    }
-
-    /**
-     * @param string $content
-     */
-    public function addContent($content = '')
-    {
-        $this->content .= $content;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getContent()
-    {
-        return $this->content;
-    }
+  /**
+   * @param string $content
+   */
+  public function addContent($content = '') {
+    $this->content .= $content;
+  }
 }

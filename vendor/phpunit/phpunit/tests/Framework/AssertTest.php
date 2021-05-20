@@ -182,6 +182,11 @@ class Framework_AssertTest extends PHPUnit_Framework_TestCase
         $this->assertArraySubset(array('a' => 'item a', 'c' => array('a2' => 'item a2')), $array);
         $this->assertArraySubset(array('a' => 'item a', 'd' => array('a2' => array('b3' => 'item b3'))), $array);
 
+        $arrayAccessData = new ArrayObject($array);
+
+        $this->assertArraySubset(array('a' => 'item a', 'c' => array('a2' => 'item a2')), $arrayAccessData);
+        $this->assertArraySubset(array('a' => 'item a', 'd' => array('a2' => array('b3' => 'item b3'))), $arrayAccessData);
+
         try {
             $this->assertArraySubset(array('a' => 'bad value'), $array);
         } catch (PHPUnit_Framework_AssertionFailedError $e) {
@@ -738,9 +743,9 @@ class Framework_AssertTest extends PHPUnit_Framework_TestCase
             array(NAN, NAN),
             // arrays
             array(array(), array(0 => 1)),
-            array(array(0 => 1), array()),
-            array(array(0 => null), array()),
-            array(array(0 => 1, 1 => 2), array(0 => 1, 1 => 3)),
+            array(array(0          => 1), array()),
+            array(array(0          => null), array()),
+            array(array(0          => 1, 1 => 2), array(0          => 1, 1 => 3)),
             array(array('a', 'b' => array(1, 2)), array('a', 'b' => array(2, 1))),
             // objects
             array(new SampleClass(4, 8, 15), new SampleClass(16, 23, 42)),
@@ -821,7 +826,7 @@ class Framework_AssertTest extends PHPUnit_Framework_TestCase
             // different types
             array(new SampleClass(4, 8, 15), false),
             array(false, new SampleClass(4, 8, 15)),
-            array(array(0 => 1, 1 => 2), false),
+            array(array(0        => 1, 1 => 2), false),
             array(false, array(0 => 1, 1 => 2)),
             array(array(), new stdClass),
             array(new stdClass, array()),

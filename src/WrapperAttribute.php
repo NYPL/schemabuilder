@@ -1,52 +1,48 @@
 <?php
+
 namespace NYPL\SchemaBuilder;
 
-class WrapperAttribute
-{
-    protected $name = '';
+class WrapperAttribute {
 
-    protected $value = '';
+  protected $name = '';
 
-    /**
-     * @param string $name
-     * @param string $value
-     */
-    public function __construct($name = '', $value = '')
-    {
-        $this->setName($name);
+  protected $value = '';
 
-        $this->setValue($value);
-    }
+  /**
+   * @param string $name
+   * @param string $value
+   */
+  public function __construct($name = '', $value = '') {
+    $this->setName($name);
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+    $this->setValue($value);
+  }
 
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
+  /**
+   * @return string
+   */
+  public function getName() {
+    return $this->name;
+  }
 
-    /**
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
+  /**
+   * @param string $name
+   */
+  public function setName($name) {
+    $this->name = $name;
+  }
 
-    /**
-     * @param string $value
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
+  /**
+   * @return string
+   */
+  public function getValue() {
+    return $this->value;
+  }
+
+  /**
+   * @param string $value
+   */
+  public function setValue($value) {
+    $this->value = $value;
+  }
 }
