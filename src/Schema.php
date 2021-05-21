@@ -25,32 +25,32 @@ class Schema extends Model {
   /**
    * @var string
    */
-  protected $type = '';
+  public $type = '';
 
   /**
    * @var string
    */
-  protected $schemaId = '';
+  public $schemaId = '';
 
   /**
    * @var array
    */
-  protected $properties = [];
+  public $properties = [];
 
   /**
    * @var MicrodataOutputter
    */
-  protected $microdataOutputter;
+  public $microdataOutputter;
 
   /**
    * @var JsonLdOutputter
    */
-  protected $jsonLdOutputter;
+  public $jsonLdOutputter;
 
   /**
    * @var string
    */
-  protected $parentPropertyName = '';
+  public $parentPropertyName = '';
 
   /**
    * @param string $type
@@ -64,7 +64,7 @@ class Schema extends Model {
   /**
    * @param string $type
    */
-  protected function checkType($type = '') {
+  public function checkType($type = '') {
     if (!$type) {
       throw new \BadMethodCallException(self::EXCEPTION_SCHEMA_TYPE_REQUIRED);
     }
@@ -84,7 +84,7 @@ class Schema extends Model {
   /**
    * @param string $type
    */
-  protected function setType($type) {
+  public function setType($type) {
     $this->type = $type;
   }
 
@@ -110,7 +110,7 @@ class Schema extends Model {
   /**
    * @param string $propertyName
    */
-  protected function checkPropertyName($propertyName = '') {
+  public function checkPropertyName($propertyName = '') {
     if (!$propertyName) {
       throw new \BadMethodCallException(self::EXCEPTION_PROPERTY_NAME_REQUIRED);
     }
@@ -121,7 +121,7 @@ class Schema extends Model {
    *
    * @return void
    */
-  protected function checkPropertyValue($propertyValue = NULL) {
+  public function checkPropertyValue($propertyValue = NULL) {
     if ($propertyValue === NULL) {
       throw new \InvalidArgumentException(self::EXCEPTION_PROPERTY_VALUE_EMPTY . ': ' . $propertyValue);
     }
@@ -140,7 +140,7 @@ class Schema extends Model {
    *
    * @return bool
    */
-  protected function isPropertyExists($propertyName = '') {
+  public function isPropertyExists($propertyName = '') {
     if (!array_key_exists($propertyName, $this->properties)) {
       return FALSE;
     }
@@ -152,7 +152,7 @@ class Schema extends Model {
    * @param string $propertyName
    * @param mixed $propertyValue
    */
-  protected function appendProperty($propertyName = '', $propertyValue = NULL) {
+  public function appendProperty($propertyName = '', $propertyValue = NULL) {
     $this->properties[$propertyName] = $propertyValue;
   }
 
@@ -182,7 +182,7 @@ class Schema extends Model {
   /**
    * @return MicrodataOutputter
    */
-  protected function getMicrodataOutputter() {
+  public function getMicrodataOutputter() {
     if (!$this->microdataOutputter) {
       $this->setMicrodataOutputter(new MicrodataOutputter($this));
     }
@@ -193,7 +193,7 @@ class Schema extends Model {
   /**
    * @param MicrodataOutputter $microdataOutputter
    */
-  protected function setMicrodataOutputter(MicrodataOutputter $microdataOutputter) {
+  public function setMicrodataOutputter(MicrodataOutputter $microdataOutputter) {
     $this->microdataOutputter = $microdataOutputter;
   }
 
@@ -208,7 +208,7 @@ class Schema extends Model {
   /**
    * @return JsonLdOutputter
    */
-  protected function getJsonLdOutputter() {
+  public function getJsonLdOutputter() {
     if (!$this->jsonLdOutputter) {
       $this->setJsonLdOutputter(new JsonLdOutputter($this));
     }
@@ -219,7 +219,7 @@ class Schema extends Model {
   /**
    * @param JsonLdOutputter $jsonLdOutputter
    */
-  protected function setJsonLdOutputter($jsonLdOutputter) {
+  public function setJsonLdOutputter($jsonLdOutputter) {
     $this->jsonLdOutputter = $jsonLdOutputter;
   }
 
@@ -258,7 +258,7 @@ class Schema extends Model {
   /**
    * @param string $parentPropertyName
    */
-  protected function setParentPropertyName($parentPropertyName) {
+  public function setParentPropertyName($parentPropertyName) {
     $this->parentPropertyName = $parentPropertyName;
   }
 

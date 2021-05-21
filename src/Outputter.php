@@ -23,14 +23,14 @@ abstract class Outputter {
   /**
    * @return Schema
    */
-  protected function getSchema() {
+  public function getSchema() {
     return $this->schema;
   }
 
   /**
    * @param Schema $schema
    */
-  protected function setSchema(Schema $schema) {
+  public function setSchema(Schema $schema) {
     $this->schema = $schema;
   }
 }
